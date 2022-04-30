@@ -1,0 +1,33 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+
+    <h1>รหัสวิชา :{{room.room_id}}</h1>
+
+    <h2>วิชา : {{room.room_name}}</h2>
+    <h2>Code : {{room.group_code}}</h2>
+    <h2>Student : <a href="{% url 'list-student' room.room_id %}">{{groups_count}}</a></h2>
+    
+    <table class="room-tb">
+        <tr>
+            <th>เลขที่</th>
+            <th>รหัสนักศึกษา</th>
+            <th>ชื่อ - นามสกุล</th>
+            <th>แจ้งเตือน</th>
+        </tr>
+        {% for group_st in groups_st %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{group_st.student_id}}</td>    
+            <td>{{group_st.student_id.user.first_name}}  {{group_st.student_id.user.last_name}}</td>
+            <td><a href="{% url 'list-alert' room.room_id %}"> test ครั้ง</a></td>  
+        </tr> 
+        {% endfor %}
+    </table>
+   
+    {% if request.user.is_authenticated %}
+
+    {% endif %}
+{% endblock %}

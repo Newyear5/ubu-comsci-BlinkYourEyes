@@ -1,0 +1,46 @@
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% load static %}
+
+
+<html>
+    <head>
+      <link rel="stylesheet" href="{% static 'styles/regis.css' %}">
+    </head>
+<body id = "body">
+  <div>
+    <div id = "login-card" class="card">
+      <div class="card-body">
+          <h1>Register</h1>
+          <form method="POST" action="{% url 'register' %}">
+            {% csrf_token %}
+            <div class="form-group">
+              {% for field in re_form %}
+              <p>{{field.label_tag}}</p>
+              <p>{{field}}</p>
+              {% endfor %}
+              {% for field in student_form %}
+              <p>{{field.label_tag}}</p>
+              <p>{{field}}</p>
+              {% endfor %}
+            </div>
+          <button type="submit" id="button" class="btn btn-primary" value="Sumbit">Sumbit</button>
+          <a href="{% url 'login' %}" id="button" class="btn btn-primary">Back</a>
+    <!--<form method="POST">
+    {% csrf_token %}
+    {{ re_form.as_p }}
+    {{student_form.as_p}}
+    <input type="submit" value="Submit"> -->
+      {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+          <li>{{message}}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    </form>
+  </div>
+</body>
+
+</html>

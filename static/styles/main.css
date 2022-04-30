@@ -1,0 +1,8 @@
+.room-tb{
+  text-align: center;
+  width: 100%;
+  border-collapse: collapse;
+}
+.room-tb td,th{
+    border: 1px solid;
+}

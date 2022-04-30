@@ -1,0 +1,31 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+
+    <h1><a href="{% url 'room' room.room_id %}" class="btn btn-primary">รหัสวิชา :{{room.room_id}}</a></h1>
+    <h2>วิชา : {{room.room_name}}</h2>
+    <h2>Student : {{groups_count}}</h2>
+
+    <table class="room-tb">
+        <tr>
+            <th>เลขที่</th>
+            <th>รหัสนักศึกษา</th>
+            <th>ชื่อ</th>
+            <th>นามสกุล</th>
+        </tr>
+        {% for group_st in groups_st %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{group_st.student_id}}</td>    
+            <td>{{group_st.student_id.user.first_name}}</td>
+            <td>{{group_st.student_id.user.last_name}}</td>    
+        </tr> 
+        {% endfor %}
+    </table>
+   
+    {% if request.user.is_authenticated %}
+
+    {% endif %}
+{% endblock %}

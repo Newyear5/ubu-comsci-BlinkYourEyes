@@ -1,0 +1,87 @@
+<style>
+    .btn1{
+        background-color: rgb(196, 230, 245);
+        color: #101111;
+    }
+    .btn1:hover{
+        background-color: rgb(17, 46, 189);
+        color: #f6f1f1;
+    }.navbar{
+        margin-bottom: 1rem;
+    }
+
+    .navbar .dropdown-menu i {
+		font-size: 16px;
+		min-width: 22px;
+	}
+	.navbar .dropdown-menu {
+		border-radius: 1px;
+		border-color: #e5e5e5;
+		box-shadow: 0 2px 8px rgba(0,0,0,.05);
+	}
+	.navbar .dropdown-menu li a {
+		color: rgb(122, 119, 119);
+		padding: 2px 5px;
+		line-height: normal;
+	}
+    .navbar .dropdown-menu li a:hover, .navbar .dropdown-menu li a:active {
+		color: rgb(23, 31, 185);
+	}	
+    .navbar .dropdown-menu .material-icons {
+		font-size: 21px;
+		line-height: 8px;
+		vertical-align: middle;
+		margin-top: -2px;
+	}
+    .navbar .material-icons {
+        font-size: 40px;
+		line-height: 15px;
+		vertical-align: middle;
+		margin-top: 12px;
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #bbe5f9;">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand">Logo</a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse9">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse9">
+            <div class="navbar-nav">
+                <a href="/" class="nav-item nav-link active">Home</a>
+                <!-- {% if request.user.user_type == '1' %}
+                <a href="{% url 'student-room' %}" class="nav-item nav-link active">Home</a>
+                {% else %}
+                <a href="/" class="nav-item nav-link active">Home</a>
+                {% endif %} -->
+
+            </div>
+            <form class="d-flex ms-auto" method="GET" action="{% url 'home' %}">
+                <input type="text" class="form-control me-sm-2" name = "q" placeholder="Search Rooms..."/>
+                <button type="submit" class="btn btn-outline-primary btn1">Search</button>
+            </form>
+            <div class="nav navbar-nav ml-auto">
+                <i class="material-icons">account_circle</i>
+                {% if request.user.is_authenticated %}
+                <li class="dropdown">
+                    {% if request.user.user_type == '1' %}
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle user-action nav-item nav-link">{{user.student.student_id}}<b class="caret"></b></a>
+                    {% else %}
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle user-action nav-item nav-link">{{user.username}}<b class="caret"></b></a>
+                    {% endif %}
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a href="{% url 'logout' %}" class="nav-item nav-link"><i class="Small material-icons">power_settings_new</i>Logout</a></li>
+                    </ul>
+                </li>
+                {% else %}
+                 <a href="{% url 'login' %}" class="nav-item nav-link">Login</a> 
+                {% endif %}                
+            </div>
+        </div>
+    </div>        
+</nav>
+
+<a href="{% url 'student-room'%}">Student</a>
+
+<hr>

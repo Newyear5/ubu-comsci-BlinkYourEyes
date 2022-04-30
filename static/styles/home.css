@@ -1,0 +1,13 @@
+.container .card-columns{
+    display: flex;
+}
+.card-header{
+    background-color: rgb(27, 184, 32);
+}
+
+.btn {
+    background-color: rgb(51, 161, 51);
+}
+.btn:hover{
+    background-color :rgb(17, 46, 189);
+}

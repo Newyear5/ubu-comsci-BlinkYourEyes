@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% load static %}
+{% bootstrap_javascript jquery='full' %}
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/home.css' %}">
+    <script src="{% static 'styles/js/studentroom.js' %}"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <title>Study</title>
+</head>
+<style>
+    body{
+        background-image: url("{% static 'styles/images/main.jpg' %}");
+        background-size:1680px 900px;
+    }
+</style>
+<body>
+    {% include 'navbar.html' %}
+
+    {% block content %}
+
+    {% endblock %}
+
+</body>
+
+</html>

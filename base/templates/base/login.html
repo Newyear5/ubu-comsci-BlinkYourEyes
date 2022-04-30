@@ -1,0 +1,41 @@
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% load static %}
+
+
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'styles/login.css' %}">
+    </head>
+
+<body id = "body">
+    
+    <div id = "login-card" class="card">
+        <div class="card-body">
+            <h1>Login</h1>
+            <form method="POST" action="{% url 'login' %}" >
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" name="username"  class="form-control" placeholder="Enter Username" />
+            </div>
+            <div class="form-group">
+                <input type="password" name="password"  class="form-control" placeholder="Enter Password" />
+            </div>
+            <button type="submit" id="button" class="btn btn-secondary" value="Login">Login</button>
+            <a href="{% url 'register' %}" id="button" >Register</a>
+            
+
+            
+            {% if messages %}
+                {% for message in messages %}
+                <script>
+                    alert('{{message}}')
+                </script>
+                {% endfor %}
+            {% endif %}
+            </form>
+        </div>
+    </div>
+</body>
+</html>

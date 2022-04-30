@@ -1,0 +1,29 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+
+    <h1><a href="{% url 'room' room.room_id %}" class="btn btn-primary">รหัสวิชา :{{room.room_id}}</a></h1>
+    <h2>วิชา : {{room.room_name}}</h2>
+
+
+    <table class="room-tb">
+        <tr>
+            <th>จำนวนครั้ง</th>
+            <th>เวาลเริ่มต้น</th>
+            <th>เวลาสิ้นสุด</th>
+        </tr>
+        {% for group_st in groups_st %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>11.45</td>    
+            <td>13.45</td>  
+        </tr> 
+        {% endfor %}
+    </table>
+   
+    {% if request.user.is_authenticated %}
+
+    {% endif %}
+{% endblock %}

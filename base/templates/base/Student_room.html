@@ -1,0 +1,64 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+      <script>
+        alert('{{message}}')
+      </script>
+    {% endfor %}
+{% endif %}
+<div class="container">
+    <span>Hello user_type: {{user.user_type}}</span>
+    <h4>{{user.username}}</h4>
+    <h4>Id: {{students.student_id}}</h4>
+    <h4>Room :{{group_count}}</h4>
+    
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Join Room
+</button>
+<hr>
+  <div class="card-columns">
+    {% for group in groups %}
+      <div class="card border-primary mb-3 text-center" style="max-width: 20rem;">
+          <div class="card-header">รหัสวิชา:{{group.room_id}}</div>
+          <div class="card-body text-primary">
+              <h5 class="card-title">วิชา :{{group.room_id.room_name}}</h5>
+
+          </div>
+        </div>
+
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'student-group' %}" method="post">
+          {% csrf_token %}
+          <input type="text" name="groupcode" id="group-code">       
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Add</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}
