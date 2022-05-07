@@ -21,13 +21,14 @@
   Join Room
 </button>
 <hr>
+
   <div class="card-columns">
     {% for group in groups %}
       <div class="card border-primary mb-3 text-center" style="max-width: 20rem;">
           <div class="card-header">รหัสวิชา:{{group.room_id}}</div>
           <div class="card-body text-primary">
               <h5 class="card-title">วิชา :{{group.room_id.room_name}}</h5>
-
+              <a href="{% url 'student-room-group' group.room_id %}" class="btn btn-primary">เข้าห้อง</a>
           </div>
         </div>
 
@@ -40,7 +41,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">รหัสเข้าห้อง</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -48,10 +49,10 @@
       <div class="modal-body">
         <form action="{% url 'student-group' %}" method="post">
           {% csrf_token %}
-          <input type="text" name="groupcode" id="group-code">       
+          <input type="text" name="groupcode" id="group-code" placeholder="ใส่รหัสห้อง">       
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Add</button>
+        <button type="submit" class="btn btn-primary">Join</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </form>

@@ -2,9 +2,10 @@
 
 
 {% block content %}
+<div class="container">
 
-
-    <h1><a href="{% url 'room' room.room_id %}" class="btn btn-primary">รหัสวิชา :{{room.room_id}}</a></h1>
+    <a href="{% url 'room' room.room_id %}" class="btn btn-sm" id="buttonback"><i class="large material-icons">arrow_back</i></a>
+    <h2>รหัสวิชา :{{room.room_id}}</h2>
     <h2>วิชา : {{room.room_name}}</h2>
     <h2>Student : {{groups_count}}</h2>
 
@@ -28,4 +29,6 @@
     {% if request.user.is_authenticated %}
 
     {% endif %}
+
+</div>
 {% endblock %}

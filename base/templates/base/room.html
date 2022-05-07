@@ -2,13 +2,13 @@
 
 
 {% block content %}
+    <div class="container">
 
-
-    <h1>รหัสวิชา :{{room.room_id}}</h1>
+    <h2>รหัสวิชา :{{room.room_id}}</h2>
 
     <h2>วิชา : {{room.room_name}}</h2>
     <h2>Code : {{room.group_code}}</h2>
-    <h2>Student : <a href="{% url 'list-student' room.room_id %}">{{groups_count}}</a></h2>
+    <a href="{% url 'list-student' room.room_id %}" class="btn btn-primary">รายชื่อนักศึกษา</a>
     
     <table class="room-tb">
         <tr>
@@ -17,6 +17,18 @@
             <th>ชื่อ - นามสกุล</th>
             <th>แจ้งเตือน</th>
         </tr>
+        <tr>
+            <td>Alfreds Futterkiste</td>
+            <td>Maria Anders</td>
+            <td>Germany</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>Alfreds Futterkiste</td>
+            <td>Maria Anders</td>
+            <td>Germany</td>
+            <td>2</td>
+          </tr>
         {% for group_st in groups_st %}
         <tr>
             <td>{{forloop.counter}}</td>
@@ -30,4 +42,6 @@
     {% if request.user.is_authenticated %}
 
     {% endif %}
+
+    </div>
 {% endblock %}

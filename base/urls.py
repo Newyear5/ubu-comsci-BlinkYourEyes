@@ -19,5 +19,7 @@ urlpatterns = [
 
     path('student-group/', views.studentGroup, name="student-group"),
     path('student-room/', views.deleteGroup, name="delete-group"),
+    path('student-room-group/<str:pk>/', views.studentRoomGroup, name="student-room-group"),
+    
 
 ]

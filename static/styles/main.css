@@ -1,8 +1,29 @@
+h2{
+  font:25px tahoma;
+}
 .room-tb{
   text-align: center;
   width: 100%;
   border-collapse: collapse;
+  
 }
 .room-tb td,th{
     border: 1px solid;
+    padding: 8px;
+    
+}
+.room-tb th{
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: rgb(164, 216, 175);
+  color: rgb(33, 36, 36);
+}
+.room-tb td{
+  background-color: rgb(235, 246, 246);
+}
+.container #buttonback{
+  color: rgb(244, 245, 246);
+  padding: 2px 3px;
+  
 }

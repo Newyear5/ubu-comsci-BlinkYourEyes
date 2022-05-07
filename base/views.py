@@ -122,6 +122,17 @@ def studentGroup(request):
     
     return redirect(request.META.get('HTTP_REFERER'))
 
+def studentRoomGroup(request,pk):
+    if not request.user.is_authenticated:
+        return render(request,'base/login_error.html')
+
+    room = Room.objects.get(room_id=pk)
+    student = Student.objects.get(user=request.user)
+    
+    context = {'room' : room,
+     'student' : student ,
+     }
+    return render(request, 'base/student_room_group.html',context)
 
 def deleteGroup(request):
     if not request.user.is_authenticated:

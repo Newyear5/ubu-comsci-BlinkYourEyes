@@ -2,7 +2,7 @@
 
 
 {% block content %}
-
+<div class="container">
 
     <h1><a href="{% url 'room' room.room_id %}" class="btn btn-primary">รหัสวิชา :{{room.room_id}}</a></h1>
     <h2>วิชา : {{room.room_name}}</h2>
@@ -26,4 +26,5 @@
     {% if request.user.is_authenticated %}
 
     {% endif %}
+</div>
 {% endblock %}
