@@ -11,10 +11,6 @@
     {% endfor %}
 {% endif %}
 <div class="container">
-    <span>Hello user_type: {{user.user_type}}</span>
-    <h4>{{user.username}}</h4>
-    <h4>Id: {{students.student_id}}</h4>
-    <h4>Room :{{group_count}}</h4>
     
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
@@ -23,20 +19,47 @@
 <hr>
 
   <div class="card-columns">
-    {% for group in groups %}
-      <div class="card border-primary mb-3 text-center" style="max-width: 20rem;">
-          <div class="card-header">รหัสวิชา:{{group.room_id}}</div>
-          <div class="card-body text-primary">
-              <h5 class="card-title">วิชา :{{group.room_id.room_name}}</h5>
-              <a href="{% url 'student-room-group' group.room_id %}" class="btn btn-primary">เข้าห้อง</a>
-          </div>
-        </div>
+      {% for group in groups %}
+          <div class="card border-primary mb-3 text-center" style="max-width: 20rem;">
+              <div class="card-header">รหัสวิชา:{{group.room_id}}</div>
+              <div class="card-body text-primary">
+                  <h5 class="card-title">วิชา :{{group.room_id.room_name}}</h5>
+                  <a href="{% url 'student-in-room' group.room_id %}" class="btn btn-primary">เข้าห้อง</a>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deletemodal">
+                  Delete
+                  </button>
+              </div>
+            </div>
 
+<!-- Modal Deleteroom-->
+<div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="deletemodal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deletemodal">ลบห้อง</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'delete-group' %}" method="post">
+          {% csrf_token %}
+          <span>คุณแน่ใจหรือที่จะออกจากวิชา {{group.room_id}}</span>
+          <input type="hidden" name="group_id" id="group_id" value={{group.room_id}}>       
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Yes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
     {% endfor %}
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal Joinroom-->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -62,4 +85,6 @@
 
 
 
-{% endblock %}
+
+
+{% endblock content %}

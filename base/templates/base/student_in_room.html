@@ -1,0 +1,56 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    img{
+        background-color: rgb(253, 255, 253);
+        border-radius: 70%;
+        width: 300px;
+        display: block;
+        margin: auto;
+        box-shadow: 0 4px 8px 0 rgba(72, 1, 253, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    .image-upload > input{
+    display: none;
+    }
+    .image-upload img{
+    cursor: pointer;
+    margin-left: 120px;
+    }
+    img:hover{
+        
+        box-shadow: 10px 10px 8px 0 rgba(1, 253, 81, 0.2), 0 6px 20px 0 rgba(4, 249, 0, 0.19);
+    }
+
+
+</style>
+
+<div class="container">
+    <button id="buttonback" onclick="history.back()" class="btn btn-sm"><i class="large material-icons">arrow_back</i></button>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="image-upload">
+            <label for="file-input">
+                <img src="{% static 'styles/images/upload.png' %}"/>
+            </label>
+            <input id="file-input" type="file" accept="video/*" />
+        </div>
+   </div>
+
+   <div class="col-md-6">
+    <a href="{% url 'student-room-record' rooms.room_id %}"><img src="{% static 'styles/images/joinroom.png' %}"></a>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col md-3">
+    <h4 class="text-center att">อัพโหลดไฟล์</h4>
+    </div>
+    <div class="col md-3">
+    <h4 class="text-center att">เริ่มบันทึก</h4>
+    </div>
+</div>
+{% endblock content %}

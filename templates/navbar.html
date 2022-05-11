@@ -57,10 +57,17 @@
                 {% endif %} -->
 
             </div>
+            {% if request.user.user_type == '1' %}
+            <form class="d-flex ms-auto" method="GET" action="{% url 'student-room' %}">
+                <input type="text" class="form-control me-sm-2" name = "q" placeholder="Search Rooms..."/>
+                <button type="submit" class="btn btn-outline-primary btn1">Search</button>
+            </form>
+            {% else %}
             <form class="d-flex ms-auto" method="GET" action="{% url 'home' %}">
                 <input type="text" class="form-control me-sm-2" name = "q" placeholder="Search Rooms..."/>
                 <button type="submit" class="btn btn-outline-primary btn1">Search</button>
             </form>
+            {% endif %}
             <div class="nav navbar-nav ml-auto">
                 <i class="material-icons">account_circle</i>
                 {% if request.user.is_authenticated %}
