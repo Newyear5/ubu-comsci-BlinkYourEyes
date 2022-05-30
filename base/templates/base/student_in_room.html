@@ -31,14 +31,13 @@
 
 <div class="row">
     <div class="col-md-6">
-        <div class="image-upload">
-            <label for="file-input">
-                <img src="{% static 'styles/images/upload.png' %}"/>
-            </label>
-            <input id="file-input" type="file" accept="video/*" />
-        </div>
+        <form action="{% url 'detect-eye' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="myfile">
+            <button type="submit">Upload</button>
+        </form>
    </div>
-
+   
    <div class="col-md-6">
     <a href="{% url 'student-room-record' rooms.room_id %}"><img src="{% static 'styles/images/joinroom.png' %}"></a>
     </div>

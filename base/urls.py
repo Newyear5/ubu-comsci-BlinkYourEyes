@@ -20,6 +20,8 @@ urlpatterns = [
     path('delete-group/', views.deleteGroup, name="delete-group"),
     path('student-in-room/<str:pk>/', views.studentinRoom, name="student-in-room"),
     path('student-room-record/<str:pk>/', views.studentroomrecord, name="student-room-record"),
+    path('check-eye/', views.check_eye, name="check-eye"),
+    path('detect-eye/', views.detect, name="detect-eye"),
     
 
 ]

@@ -50,7 +50,11 @@ class Student_Group(models.Model):
 
     def __str__(self):
         return self.room_id.room_id
+
+class Student_check_count(models.Model):
+    student_id = models.ForeignKey(Student , on_delete=models.CASCADE)
     
+
 class Message(models.Model):
     user = models.ForeignKey(CustomUser, on_delete= models.CASCADE)
     room = models.ForeignKey(Room, on_delete= models.CASCADE)

@@ -30,12 +30,15 @@ btn.addEventListener('click', function handleClick(event) {
     start_button.addEventListener('click', async function() {
     camera_stream = await navigator.mediaDevices.getUserMedia(constraintObj);
 	  video.srcObject = camera_stream;
+    const tracks = camera_stream.getTracks();
     video.play();
 
     // set MIME type of recording as video/webm
     media_recorder = new MediaRecorder(camera_stream,{
-      mimeType: 'video/webm' 
+      mimeType: 'video/webm'
      });
+    
+    
     // event : new recorded video blob available 
     media_recorder.addEventListener('dataavailable', function(e) {
 		  blobs_recorded.push(e.data);
@@ -47,14 +50,16 @@ btn.addEventListener('click', function handleClick(event) {
     	// create local object URL from the recorded video blobs
     	let video_local = URL.createObjectURL(new Blob(blobs_recorded, { type: 'video/webm;' }));
     	download_link.href = video_local;
-      let videoUrl  = window.URL.createObjectURL(new Blob(blobs_recorded, { type: 'video/webm;' }));
+      let videoUrl  = window.URL.createObjectURL(new Blob(blobs_recorded, { type: 'video/webm' }));
       vidSave.src = videoUrl;
+      video.pause();
+      tracks[0].stop();
+      video.srcObject=null;      
     });
 });
 
 stop_button.addEventListener('click', function() {
 	media_recorder.stop();
-  video.pause();
 });
 
 
