@@ -1,0 +1,105 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<style>
+  .form-group input{
+    border-radius:20px;
+    width: 60%;
+  }
+</style>
+
+{% if messages %}
+  {% for message in messages %}
+    <script>
+      alert('{{message}}')
+    </script>
+  {% endfor %}
+{% endif %}
+
+<div class="container">
+  <h5>มีห้องจำนวนทั้งหมด {{room_count}} ห้อง</h5>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createroom">
+      สร้างห้องเรียน
+  </button>
+  <hr>
+  
+  <div class="row">
+    
+    {% for room in rooms %}
+    {% if request.user.teacher == room.room_host %}
+    <div class="col-md-4">
+      <div class="card border-primary mb-3 text-center" style="max-width: 20rem;">
+        <div class="card-header">รหัสวิชา : {{room.room_id}}</div>
+        <div class="card-body text-primary">
+          <h5 class="card-title">วิชา : {{room.room_name}}</h5>
+          <a href="{% url 'room' room.room_id %}" class="btn btn-primary">เข้าห้อง</a>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deletemodal">
+            ลบห้อง
+          </button>
+        </div>
+      </div>
+    </div>
+        
+          
+<!-- Modal Deleteroom-->
+<div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="deletemodal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deletemodal">ลบห้อง</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'delete-room' %}" method="post">
+          {% csrf_token %}
+          <span>คุณแน่ใจหรือที่จะลบห้อง {{room.room_id}}</span>
+          <input type="hidden" name="room_id" id="room_id" value={{room.room_id}}>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Yes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+</div>
+</div>
+
+<!-- Modalcreateroom -->
+<div class="modal fade" id="createroom" tabindex="-1" role="dialog" aria-labelledby="createroomLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createroomLabel">สร้างห้องเรียน</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'create-room' %}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+          {{form.as_p}}
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#createroom').on('hidden.bs.modal', function () {
+    $(this).find('form').trigger('reset');
+});
+</script>
+{% endblock %}

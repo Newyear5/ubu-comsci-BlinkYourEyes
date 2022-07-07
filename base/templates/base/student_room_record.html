@@ -6,16 +6,15 @@
 <style>
   #btnStart{
     float: right;
-    margin-right: 80px;
+    margin-right: auto;
   }
   #btnStop{
     float: right;
-    margin-right: 80px;
-    margin-top: -60px;
+    margin-top: -50px;
   }
   #vid1{
-    width: 800px;
-    height: 500px;
+    width :  clamp(640px,70%,1920px);
+    height:  clamp(480px,70%,1080px);
   }
   #roomid{
     text-align: center;
@@ -27,12 +26,10 @@
 <div class="container">
   <p><button id="buttonback" onclick="history.back()" class="btn btn-sm"><i class="large material-icons">arrow_back</i></button></p>
   <h1 id="roomid">วิชา : {{rooms.room_name}}</h1>
-  <p><button id = "btnStart" class="btn btn-secondary" >START RECORDING</button></p>
+  <button id = "btnStart" class="btn btn-secondary" >START RECORDING</button>
   <p><video id = "vid1" controls></video></p>
-  <p><button id = "btnStop" class="btn btn-secondary" >STOP RECORDING</button></p>  
-  <video id = "vid2" controls></video>  
-  <a id = "download-video" download = "test.webm">Download Video</a>
-  
+  <p><button id = "btnStop" class="btn btn-secondary" >STOP RECORDING</button></p>
+  <p><button id="download-link" style="display: none;"><a id = "download-video" download = "test.webm" target="_blank"></a>Download Video</button></p>
 </div>
 
 {% endblock content %}

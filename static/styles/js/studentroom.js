@@ -1,13 +1,4 @@
-/* const btn = document.getElementById('btn');
-const deltebtn = document.getElementById('btn1');
 
-btn.addEventListener('click', function handleClick(event) {
-  event.preventDefault();
-  const codeInput = document.getElementById('code');
-  console.log(codeInput.value);
-  codeInput.value = '';
-});
- */
     let constraintObj = { 
         audio: false, 
         video: {
@@ -18,9 +9,8 @@ btn.addEventListener('click', function handleClick(event) {
     let start_button = document.getElementById('btnStart');
     let stop_button = document.getElementById('btnStop');
     let video = document.getElementById('vid1');
-    let vidSave = document.getElementById('vid2');
     let download_link = document.getElementById('download-video');
-
+    let download_link_button = document.getElementById('download-link');
     let camera_stream = null;
     let media_recorder = null;
     let blobs_recorded = [];
@@ -50,8 +40,6 @@ btn.addEventListener('click', function handleClick(event) {
     	// create local object URL from the recorded video blobs
     	let video_local = URL.createObjectURL(new Blob(blobs_recorded, { type: 'video/webm;' }));
     	download_link.href = video_local;
-      let videoUrl  = window.URL.createObjectURL(new Blob(blobs_recorded, { type: 'video/webm' }));
-      vidSave.src = videoUrl;
       video.pause();
       tracks[0].stop();
       video.srcObject=null;      
@@ -60,6 +48,7 @@ btn.addEventListener('click', function handleClick(event) {
 
 stop_button.addEventListener('click', function() {
 	media_recorder.stop();
+  download_link_button.style.display = "block";
 });
 
 

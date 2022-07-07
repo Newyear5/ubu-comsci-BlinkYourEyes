@@ -1,3 +1,4 @@
+{% load static %}
 <style>
     .btn1{
         background-color: rgb(196, 230, 245);
@@ -39,22 +40,27 @@
 		vertical-align: middle;
 		margin-top: 12px;
     }
+    #img-logo{
+        width: 60px;
+        height: 60px;
+    }
 </style>
 
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #bbe5f9;">
     <div class="container-fluid">
-        <a href="#" class="navbar-brand">Logo</a>
+        <img src="{% static 'styles/images/blink_background.png' %}" id="img-logo">
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse9">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse9">
             <div class="navbar-nav">
-                <a href="/" class="nav-item nav-link active">Home</a>
-                <!-- {% if request.user.user_type == '1' %}
+                {% if request.user.user_type == '1' %}
                 <a href="{% url 'student-room' %}" class="nav-item nav-link active">Home</a>
+                {% elif request.user.user_type == '2'%}
+                <a href="{% url 'teacher-home' %}" class="nav-item nav-link active">Home</a>
                 {% else %}
-                <a href="/" class="nav-item nav-link active">Home</a>
-                {% endif %} -->
+                <a href="{% url 'admin-home' %}" class="nav-item nav-link active">Home</a>
+                {% endif %} 
 
             </div>
             {% if request.user.user_type == '1' %}
@@ -62,8 +68,8 @@
                 <input type="text" class="form-control me-sm-2" name = "q" placeholder="Search Rooms..."/>
                 <button type="submit" class="btn btn-outline-primary btn1">Search</button>
             </form>
-            {% else %}
-            <form class="d-flex ms-auto" method="GET" action="{% url 'home' %}">
+            {% elif request.user.user_type == '2' %}
+            <form class="d-flex ms-auto" method="GET" action="{% url 'teacher-home' %}">
                 <input type="text" class="form-control me-sm-2" name = "q" placeholder="Search Rooms..."/>
                 <button type="submit" class="btn btn-outline-primary btn1">Search</button>
             </form>
@@ -89,6 +95,5 @@
     </div>        
 </nav>
 
-<a href="{% url 'student-room'%}">Student</a>
 
-<hr>
+

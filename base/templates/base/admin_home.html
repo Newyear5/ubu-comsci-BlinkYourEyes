@@ -1,0 +1,118 @@
+{% extends 'main.html' %}
+{% block content %}
+<style>
+  .form-group input{
+    border-radius:30px;
+    width: 60%;
+    margin-top: -100px;
+  }
+</style>
+{% if messages %}
+  {% for message in messages %}
+    <script>
+      alert('{{message}}')
+    </script>
+  {% endfor %}
+{% endif %}
+
+<div class="container">
+    <h5>มีห้องในระบบจำนวนทั้งหมด {{room_count}} ห้อง</h5>
+    <h5>มีนักเรียนในระบบจำนวนทั้งหมด {{student_count}} คน</h5>
+    <h5>มีผู้สอนในระบบจำนวนทั้งหมด {{teacher_count}} คน</h5>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createuserteacher">
+      เพิ่มผู้สอน
+    </button>
+    <a href="#" class="btn btn-primary" data-target="tablestudent">รายชื่อนักศึกษา</a>
+    <a href="#" class="btn btn-primary" data-target="tableteacher">รายชื่อผู้สอน</a>
+    <hr>
+
+    <table class="room-tb" style="display: none;" id="tableteacher">
+        <tr>
+            <th>ลำดับที่</th>
+            <th>ชื่อ</th>
+            <th>นามสกุล</th>
+            <th>วิชาที่สอน</th>
+        </tr>
+        {% for teacher in teachers %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{teacher.user.first_name}}</td>
+            <td>{{teacher.user.last_name}}</td>
+            <td>
+            {% for room in rooms %}
+              {% if room.room_host.user == teacher.user %}
+                {{room.room_name}},
+              {% endif %}
+            {% endfor %}
+          </td>
+        </tr>
+        {% endfor %}
+    </table>
+       
+
+
+    <table class="room-tb" style="display: none;" id="tablestudent">
+        <tr>
+            <th>ลำดับที่</th>
+            <th>รหัสนักศึกษา</th>
+            <th>ชื่อ</th>
+            <th>นามสกุล</th>
+        </tr>
+        {% for student in students %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{student.student_id}}</td>    
+            <td>{{student.user.first_name}}</td>
+            <td>{{student.user.last_name}}</td>  
+        </tr> 
+        {% endfor %}
+    </table>
+</div>
+
+<!-- Modalcreateuserteacher -->
+<div class="modal fade" id="createuserteacher" tabindex="-1" role="dialog" aria-labelledby="createuserteacherLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createuserteacherLabel">เพิ่มผู้สอน</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'create-user' %}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            {{formuser.as_p}}
+          </div>
+        </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+<script>
+let current,previous;
+$(document).ready(function(){
+    $('.container a').on('click', function(){
+        previous=current
+        current = $(this).data('target');
+        if(previous == current){
+          $('#'+current).toggle();
+        }else{
+          $('#'+previous).hide();
+          $('#'+current).show();
+        }
+    });
+    $('#createuserteacher').on('hidden.bs.modal', function () {
+      $(this).find('form').trigger('reset');
+    });
+});
+   
+</script>
+{% endblock %}

@@ -3,28 +3,27 @@
 
 {% block content %}
 <div class="container">
-
-    <h1><a href="{% url 'room' room.room_id %}" class="btn btn-primary">รหัสวิชา :{{room.room_id}}</a></h1>
+    <button id="buttonback" onclick="history.back()" class="btn btn-sm"><i class="large material-icons">arrow_back</i></button>
+    <h2>รหัสวิชา : {{room.room_id}}</h2>
     <h2>วิชา : {{room.room_name}}</h2>
+    <h2>ที่อยู่ไฟล์ : {{student_count.path_video}}</h2>
 
 
     <table class="room-tb">
         <tr>
-            <th>จำนวนครั้ง</th>
+            <th>ครั้งที่</th>
             <th>เวาลเริ่มต้น</th>
             <th>เวลาสิ้นสุด</th>
         </tr>
-        {% for group_st in groups_st %}
+        {% for count in count_set %}
         <tr>
             <td>{{forloop.counter}}</td>
-            <td>11.45</td>    
-            <td>13.45</td>  
+            <td>{{count.start}} นาที</td>    
+            <td>{{count.stop}} นาที</td>  
         </tr> 
         {% endfor %}
     </table>
    
-    {% if request.user.is_authenticated %}
 
-    {% endif %}
 </div>
 {% endblock content %}

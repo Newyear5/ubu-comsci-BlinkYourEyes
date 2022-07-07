@@ -27,17 +27,12 @@
             </div>
           <button type="submit" id="button" class="btn btn-primary" value="Sumbit">Sumbit</button>
           <a href="{% url 'login' %}" id="button" class="btn btn-primary">Back</a>
-    <!--<form method="POST">
-    {% csrf_token %}
-    {{ re_form.as_p }}
-    {{student_form.as_p}}
-    <input type="submit" value="Submit"> -->
       {% if messages %}
-        <ul class="messages">
         {% for message in messages %}
-          <li>{{message}}</li>
+        <script>
+          alert('{{message}}')
+        </script>
         {% endfor %}
-        </ul>
       {% endif %}
     </form>
   </div>

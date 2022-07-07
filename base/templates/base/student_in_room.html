@@ -3,7 +3,7 @@
 
 {% block content %}
 <style>
-    img{
+    .row img{
         background-color: rgb(253, 255, 253);
         border-radius: 70%;
         width: 300px;
@@ -18,11 +18,10 @@
     cursor: pointer;
     margin-left: 120px;
     }
-    img:hover{
+    .row img:hover{
         
         box-shadow: 10px 10px 8px 0 rgba(1, 253, 81, 0.2), 0 6px 20px 0 rgba(4, 249, 0, 0.19);
     }
-
 
 </style>
 
@@ -30,26 +29,34 @@
     <button id="buttonback" onclick="history.back()" class="btn btn-sm"><i class="large material-icons">arrow_back</i></button>
 
 <div class="row">
+    
     <div class="col-md-6">
-        <form action="{% url 'detect-eye' %}" method="post" enctype="multipart/form-data">
+        <a href="{% url 'student-room-record' rooms.room_id %}"><img src="{% static 'styles/images/joinroom.png' %}"></a>
+    </div>
+
+
+    <div class="col-md-6">
+        <form action="{% url 'detect-eye' rooms.room_id %}" method="post" enctype="multipart/form-data" >
+            <div class="image-upload">
+            <label for="file-input">
+                <img src="{% static 'styles/images/upload.png' %}"/>
+            </label>
             {% csrf_token %}
-            <input type="file" name="myfile">
-            <button type="submit">Upload</button>
+            <input id="file-input" type="file" name="myfile" accept="video/mp4" onchange="form.submit()">
+            </div>
         </form>
    </div>
    
-   <div class="col-md-6">
-    <a href="{% url 'student-room-record' rooms.room_id %}"><img src="{% static 'styles/images/joinroom.png' %}"></a>
-    </div>
+   
 </div>
 
 <div class="row">
-
     <div class="col md-3">
-    <h4 class="text-center att">อัพโหลดไฟล์</h4>
+    <h4 class="text-center att">เริ่มบันทึกวิดิโอ</h4>
     </div>
     <div class="col md-3">
-    <h4 class="text-center att">เริ่มบันทึก</h4>
+    <h4 class="text-center att">อัพโหลดวิดิโอ</h4>
+    <h4 class="text-center att">(เฉพาะไฟล์วิดิโอ .mp4)</h4>
     </div>
 </div>
 {% endblock content %}

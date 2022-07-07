@@ -2,46 +2,42 @@
 
 
 {% block content %}
-    <div class="container">
 
-    <h2>รหัสวิชา :{{room.room_id}}</h2>
+
+<div class="container">
+    <a href="{% url 'teacher-home' %}" class="btn btn-sm" id="buttonback"><i class="large material-icons">arrow_back</i></a>
+    <h2>รหัสวิชา : {{room.room_id}}</h2>
 
     <h2>วิชา : {{room.room_name}}</h2>
     <h2>Code : {{room.group_code}}</h2>
-    <a href="{% url 'list-student' room.room_id %}" class="btn btn-primary">รายชื่อนักศึกษา</a>
+    <h2><a href="{% url 'list-student' room.room_id %}" class="btn btn-primary">รายชื่อนักศึกษา</a></h2>
     
-    <table class="room-tb">
+    <table class="room-tb" id="room-tb">
         <tr>
-            <th>เลขที่</th>
+            <th>ลำดับที่</th>
             <th>รหัสนักศึกษา</th>
             <th>ชื่อ - นามสกุล</th>
-            <th>แจ้งเตือน</th>
+            <th>ความยาววิดิโอ</th>
+            <th>เวลาอัพโหลดไฟล์</th>
+            <th>จำนวนแจ้งเตือน</th>
         </tr>
-        <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>Maria Anders</td>
-            <td>Germany</td>
-            <td>1</td>
-        </tr>
-        <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>Maria Anders</td>
-            <td>Germany</td>
-            <td>2</td>
-          </tr>
-        {% for group_st in groups_st %}
+        {% for list in list_students_alert %}
         <tr>
             <td>{{forloop.counter}}</td>
-            <td>{{group_st.student_id}}</td>    
-            <td>{{group_st.student_id.user.first_name}}  {{group_st.student_id.user.last_name}}</td>
-            <td><a href="{% url 'list-alert' room.room_id %}"> test ครั้ง</a></td>  
+            <td>{{list.student_id}}</td>    
+            <td>{{list.student_id.user.first_name}}  {{list.student_id.user.last_name}}</td>
+            <td>{{list.duration}} นาที</td>
+            <td>{{list.date}}</td>
+            {% if list.count_times > 0 %}
+            <td><a href="{% url 'list-alert' room.room_id list.code_set  %}"> {{list.count_times}}</a></td>  
+            {% else %}
+            <td>{{list.count_times}}</td>  
+            {% endif %}
         </tr> 
         {% endfor %}
     </table>
    
-    {% if request.user.is_authenticated %}
 
-    {% endif %}
 
     </div>
     {% endblock content %}

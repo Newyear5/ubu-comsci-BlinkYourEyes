@@ -3,6 +3,13 @@
 
 {% block content %}
 
+<style>
+  #group_code{
+    border-radius:10px;
+    width: 50%;
+  }
+</style>
+
 {% if messages %}
     {% for message in messages %}
       <script>
@@ -14,29 +21,31 @@
     
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Join Room
+  เข้าร่วมห้องเรียน
 </button>
 <hr>
 
-  <div class="card-columns">
+  <div class="row">
       {% for group in groups %}
+      <div class="col-md-4">
           <div class="card border-primary mb-3 text-center" style="max-width: 20rem;">
-              <div class="card-header">รหัสวิชา:{{group.room_id}}</div>
+              <div class="card-header">รหัสวิชา : {{group.room_id}}</div>
               <div class="card-body text-primary">
-                  <h5 class="card-title">วิชา :{{group.room_id.room_name}}</h5>
+                  <h5 class="card-title">วิชา : {{group.room_id.room_name}}</h5>
                   <a href="{% url 'student-in-room' group.room_id %}" class="btn btn-primary">เข้าห้อง</a>
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deletemodal">
-                  Delete
+                  ออกจากห้อง
                   </button>
               </div>
             </div>
+          </div>
 
 <!-- Modal Deleteroom-->
 <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="deletemodal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="deletemodal">ลบห้อง</h5>
+        <h5 class="modal-title" id="deletemodal">ออกจากห้อง</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -72,7 +81,7 @@
       <div class="modal-body">
         <form action="{% url 'student-group' %}" method="post">
           {% csrf_token %}
-          <input type="text" name="groupcode" id="group-code" placeholder="ใส่รหัสห้อง">       
+          <input type="text" name="group_code" id="group_code" placeholder="ใส่รหัสห้อง">       
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary">Join</button>
@@ -83,8 +92,11 @@
   </div>
 </div>
 
-
-
+<script>
+  $('#exampleModal').on('hidden.bs.modal', function () {
+    $(this).find('form').trigger('reset');
+});
+</script>
 
 
 {% endblock content %}
